@@ -1,4 +1,4 @@
-const int ledPin = 13;
+const int ledPin = 2;
 
 unsigned long previousMillis = 0;
 const long interval = 500;  // 500ms 翻转一次 → 1Hz
