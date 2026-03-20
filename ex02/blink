@@ -1,19 +1,22 @@
-const int ledPin = 2;
+const int ledPin = 13;
 
+unsigned long previousMillis = 0;
+const long interval = 500;  // 500ms 翻转一次 → 1Hz
+
+bool ledState = LOW;
 
 void setup() {
-  // put your setup code here, to run once:
-Serial.begin(115200);
-pinMode(ledPin ,OUTPUT);
+  pinMode(ledPin, OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  digitalWrite(ledPin,HIGH);
-  Serial.println("LED ON");
-  delay(500);
-  digitalWrite(ledPin,LOW);
-  Serial.println("LED OFF");
-  delay(200);
+  unsigned long currentMillis = millis();
 
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+
+    // 翻转LED状态
+    ledState = !ledState;
+    digitalWrite(ledPin, ledState);
+  }
 }
