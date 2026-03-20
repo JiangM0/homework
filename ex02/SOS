@@ -1,0 +1,22 @@
+const int ledPin = 2;
+
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(115200);
+pinMode(ledPin ,OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  
+for(int i=0; i<3; i++) { digitalWrite(ledPin, HIGH); delay(200); digitalWrite(ledPin, LOW); delay(200); }
+delay(500); // 字母间隔
+
+for(int i=0; i<3; i++) { digitalWrite(ledPin, HIGH); delay(600); digitalWrite(ledPin, LOW); delay(200); }
+delay(500);
+
+for(int i=0; i<3; i++) { digitalWrite(ledPin, HIGH); delay(200); digitalWrite(ledPin, LOW); delay(200); }
+delay(2000); // 单词间隔
+
+}
