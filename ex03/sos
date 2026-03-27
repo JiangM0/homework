@@ -12,7 +12,7 @@ unsigned int pattern[] = {
 
 const int patternLength = sizeof(pattern) / sizeof(pattern[0]);
 
-int stepIndex = 0;          // 当前步骤
+int stepIndex = 0;         
 bool ledState = HIGH;      // 当前LED状态（从亮开始）
 
 unsigned long previousMillis = 0;
