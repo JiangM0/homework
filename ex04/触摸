@@ -1,0 +1,31 @@
+#define TOUCH_PIN 4
+#define LED_PIN 17
+#define THRESHOLD 600
+
+bool ledState = false;
+bool isTouched = false;  // 标记是否正在触摸
+
+// 改进版中断函数
+void gotTouch() {
+  int val = touchRead(TOUCH_PIN);
+  if (val < THRESHOLD && !isTouched) {
+    // 只有从"没触摸"变成"触摸"时，才翻转LED
+    ledState = !ledState;
+    digitalWrite(LED_PIN, ledState);
+    isTouched = true;
+  } else if (val >= THRESHOLD && isTouched) {
+    // 松开时只重置标记，不碰LED
+    isTouched = false;
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, ledState);
+  touchAttachInterrupt(TOUCH_PIN, gotTouch, THRESHOLD);
+}
+
+void loop() {
+  delay(100);
+}

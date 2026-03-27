@@ -1,6 +1,6 @@
 const int ledPin = 13;
 
-// SOS节奏：亮/灭交替时间（单位：ms）
+
 unsigned int pattern[] = {
   // S: ···
   200, 200, 200, 200, 200, 600,
