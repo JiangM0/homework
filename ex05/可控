@@ -1,0 +1,39 @@
+#define LED_PIN 17        // LED连接引脚（PWM）
+#define TOUCH_PIN 4      // 触碰输入引脚（数字触碰）
+
+int mode = 0;           // 0-慢 1-中 2-快
+int lastTouchState = 0; // 上一次触碰状态
+
+void setup() {
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(TOUCH_PIN, INPUT);
+}
+
+void loop() {
+    int touchState = digitalRead(TOUCH_PIN);
+
+    // 检测触碰（上升沿）
+    if (touchState == HIGH && lastTouchState == LOW) {
+        mode = (mode + 1) % 3;  
+        delay(200);             // 防抖
+    }
+    lastTouchState = touchState;
+
+    // 根据模式选择速度
+    int speedDelay;
+    if (mode == 0) speedDelay = 15;   // 慢
+    else if (mode == 1) speedDelay = 7; // 中
+    else speedDelay = 3;             // 快
+
+    // 呼吸灯：亮
+    for (int i = 0; i <= 255; i++) {
+        analogWrite(LED_PIN, i);
+        delay(speedDelay);
+    }
+
+    // 呼吸灯：灭
+    for (int i = 255; i >= 0; i--) {
+        analogWrite(LED_PIN, i);
+        delay(speedDelay);
+    }
+}
