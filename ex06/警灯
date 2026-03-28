@@ -1,0 +1,48 @@
+const int ledA = 4;   // 第一个LED
+const int ledB = 17;  // 第二个LED
+
+// 亮度变量：范围0-255（PWM占空比）
+int brightness = 0;
+// 渐变步长：数值越小，过渡越柔和
+int fadeStep = 1;
+int flag = 0;
+void setup() {
+    Serial.begin(115200);
+  // 初始化两个引脚为输出模式
+  pinMode(ledA, OUTPUT);
+  pinMode(ledB, OUTPUT);
+
+}
+
+void loop() {
+  // ============== 核心反相逻辑 ==============
+if(flag)
+{
+    brightness = brightness + fadeStep;
+  if (brightness >= 255) {
+    flag = 0;
+  }
+  // 增加亮度值
+  
+
+  // 当亮度达到最大值255时，重置为0，循环渐变
+}
+else
+{
+      brightness = brightness - fadeStep;
+      if (brightness <= 0) {
+    flag = 1;
+  }
+  // 增加亮度值
+
+}
+  // LEDA：亮度从0→255 逐渐变亮
+  analogWrite(ledA, brightness);
+  
+  // LEDB：亮度从255→0 逐渐变暗（反相关系）
+  analogWrite(ledB, 255 - brightness);
+  // 延时控制渐变速度（单位：毫秒）
+  Serial.println(brightness);
+  delay(5);
+  
+}
